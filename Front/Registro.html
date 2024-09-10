@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Registró</title>
+    <title>Formulario de Registro</title>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles/registro.css">
 </head>
 <body>
     <section class="form-register">
-        <h4>Formulario Registró</h4>
+        <h4>Formulario para Registrarse</h4>
         <input class="controls" type="text" name="nombres" id="nombres" placeholder="Ingrese su Nombre">
         <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Ingrese su Apellido">
         <input class="controls" type="email" name="correo" id="correo" placeholder="Ingrese su Correo">
-        <input class="controls" type="password" name="correo" id="correo" placeholder="Ingrese su Contraseña">
+        <input class="controls" type="password" name="contraseña" id="contraseña" placeholder="Ingrese su Contraseña">
         <input class="controls" type="tel" name="telefono" id="telefono" placeholder="Ingrese su Teléfono">
         <input class="controls" type="text" name="dni" id="dni" placeholder="Ingrese su DNI">
-
         <label for="partido">Partido:</label>
         <select id="partido" name="partido" class="controls">
             <option value="quilmes" selected>Quilmes</option>
@@ -26,17 +25,15 @@
         <label for="localidad">Localidad:</label>
         <select id="localidad" name="localidad" class="controls">
         </select>
-
         <p>Estoy de acuerdo con <a href="#">Terminos y Condiciones</a></p>
         <input class="botons" type="submit" value="Registrar">
         <p><a href="IniciarSesion.html">¿Ya tengo Cuenta?</a></p>
-      </section>
-
-      <script>
+        </section>
+    <script>
         const localidades = {
-            quilmes: ["Quilmes Centro", "Quilmes Oeste", "Quilmes Este"],
-            berazategui: ["Berazategui Centro", "Ranelagh", "El Pato"],
-            fcio_varela: ["Varela Centro", "Bosques", "San Juan"]
+            quilmes: ["Bernal", "Don Bosco", "Ezpeleta", "Quilmes", "San Francisco Solano", "Villa la Florida"],
+            berazategui: ["Villa España", "Plátanos", "Hudson", "Ranelagh", "El Pato", "Juan María Gutiérrez", "Sourigues", "Pereyra"],
+            fcio_varela: ["Bosques", "Estanislao Severo Zeballos", "San Juan Bautista", "Gobernador Julio A. Costa", "Ingeniero Juan Allan", "Villa Brown", "Villa San Luis", "Villa Santa Rosa", "Villa Vatteone", "La Capilla"]
         };
 
         const partidoSelect = document.getElementById('partido');
@@ -59,7 +56,6 @@
 
         partidoSelect.addEventListener('change', updateLocalidades);
     </script>
-
-
 </body>
 </html>
+

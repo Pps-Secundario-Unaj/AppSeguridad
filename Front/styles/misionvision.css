@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: 'Monserrat';
 }
 
 body {
@@ -51,7 +51,7 @@ body {
 }
 
 .card:hover {
-    background-color: #b8d4de;
+    background-color: #b3cee4;
 }
 
 .card .icon {
@@ -61,7 +61,7 @@ body {
 
 .card h2 {
     font-size: 28px;
-    color: #c94f4f;
+    color: #000000;
     margin-bottom: 20px;
 }
 
@@ -79,12 +79,12 @@ body {
     padding: 8px 12px;
     border-radius: 5px;
     letter-spacing: 1px;
-    background-color: #8a4cc4;
+    background-color: #4619e7;
     transition: background-color 0.4s ease; /* Transición suave para el hover */
 }
 
 .button:hover {
-    background-color: #c94f4f;
+    background-color: #1fabe2;
 }
 
 @media screen and (max-width: 940px) {
