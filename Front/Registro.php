@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="styles/registro.css">
 </head>
 <body>
-    <section class="form-register">
+    <form class="form-register" method="post">
         <h4>Formulario para Registrarse</h4>
         <input class="controls" type="text" name="nombres" id="nombres" placeholder="Ingrese su Nombre">
         <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Ingrese su Apellido">
         <input class="controls" type="email" name="correo" id="correo" placeholder="Ingrese su Correo">
-        <input class="controls" type="password" name="contraseña" id="contraseña" placeholder="Ingrese su Contraseña">
+        <input class="controls" type="password" name="clave" id="clave" placeholder="Ingrese su Contraseña">
         <input class="controls" type="tel" name="telefono" id="telefono" placeholder="Ingrese su Teléfono">
+        <input class="controls" type="text" name="direccion" id="direccion" placeholder="Ingrese su Dirección">
         <input class="controls" type="text" name="dni" id="dni" placeholder="Ingrese su DNI">
         <label for="partido">Partido:</label>
         <select id="partido" name="partido" class="controls">
@@ -26,9 +27,12 @@
         <select id="localidad" name="localidad" class="controls">
         </select>
         <p>Estoy de acuerdo con <a href="#">Terminos y Condiciones</a></p>
-        <input class="botons" type="submit" value="Registrar">
+        <input class="botons" type="submit" value="Registrar" name="register">
         <p><a href="IniciarSesion.html">¿Ya tengo Cuenta?</a></p>
-        </section>
+    </form>
+        <?php
+        include("../Back/registrar_back.php");
+        ?>
     <script>
         const localidades = {
             quilmes: ["Bernal", "Don Bosco", "Ezpeleta", "Quilmes", "San Francisco Solano", "Villa la Florida"],
