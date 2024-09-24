@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Delito</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Mapa de Delito</h1>
+        <p>Análisis de delitos en Berazategui, Varela y Quilmes</p>
+    </header>
+    <main>
+        <section class="charts">
+            <div class="chart-container">
+                <h2>Berazategui</h2>
+                <div class="chart">
+                    <canvas id="pieChartBerazategui"></canvas>
+                </div>
+                <div class="chart">
+                    <canvas id="barChartBerazategui"></canvas>
+                </div>
+            </div>
+            <div class="chart-container">
+                <h2>Varela</h2>
+                <div class="chart">
+                    <canvas id="pieChartVarela"></canvas>
+                </div>
+                <div class="chart">
+                    <canvas id="barChartVarela"></canvas>
+                </div>
+            </div>
+            <div class="chart-container">
+                <h2>Quilmes</h2>
+                <div class="chart">
+                    <canvas id="pieChartQuilmes"></canvas>
+                </div>
+                <div class="chart">
+                    <canvas id="barChartQuilmes"></canvas>
+                </div>
+            </div>
+            <div class="chart general-chart">
+                <h2>Distribución General de Delitos</h2>
+                <canvas id="pieChartAll"></canvas>
+            </div>
+            <div id="map-tooltip" class="map-tooltip" style="display: none;"></div>
+            <div id="map-berazategui" data-localidad="berazategui" class="map"></div>
+            <div id="map-quilmes" data-localidad="quilmes" class="map"></div>
+            <div id="map-varela" data-localidad="varela" class="map"></div>
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf"></script>
+    <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
