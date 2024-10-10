@@ -14,30 +14,34 @@
         <p>Análisis de delitos en Berazategui, Varela y Quilmes</p>
     </header>
     <main>
+        <div id="map-tooltip" class="map-tooltip" style="display: none;"></div>
         <section class="charts">
             <div class="chart-container">
                 <h2>Berazategui</h2>
-                <div class="chart">
+                <div id="map-berazategui" data-localidad="berazategui" class="map"></div>
+                <!-- <div class="chart">
                     <canvas id="pieChartBerazategui"></canvas>
-                </div>
+                </div> -->
                 <div class="chart">
                     <canvas id="barChartBerazategui"></canvas>
                 </div>
             </div>
             <div class="chart-container">
                 <h2>Varela</h2>
-                <div class="chart">
+                <div id="map-varela" data-localidad="varela" class="map"></div>
+               <!-- <div class="chart">
                     <canvas id="pieChartVarela"></canvas>
-                </div>
+                </div> -->
                 <div class="chart">
                     <canvas id="barChartVarela"></canvas>
                 </div>
             </div>
             <div class="chart-container">
                 <h2>Quilmes</h2>
-                <div class="chart">
+                <div id="map-quilmes" data-localidad="quilmes" class="map"></div>
+               <!-- <div class="chart">
                     <canvas id="pieChartQuilmes"></canvas>
-                </div>
+                </div> -->
                 <div class="chart">
                     <canvas id="barChartQuilmes"></canvas>
                 </div>
@@ -46,10 +50,6 @@
                 <h2>Distribución General de Delitos</h2>
                 <canvas id="pieChartAll"></canvas>
             </div>
-            <div id="map-tooltip" class="map-tooltip" style="display: none;"></div>
-            <div id="map-berazategui" data-localidad="berazategui" class="map"></div>
-            <div id="map-quilmes" data-localidad="quilmes" class="map"></div>
-            <div id="map-varela" data-localidad="varela" class="map"></div>
         </section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf"></script>

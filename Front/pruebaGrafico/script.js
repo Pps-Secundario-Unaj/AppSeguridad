@@ -41,39 +41,101 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
     const centroVarela = [-58.2591, -34.8904];
     const zoomVarela = 9.8;
-
+    
     crearGraficos();
     crearMapa(mapaVarela, varelaGeojson, centroVarela, zoomVarela);
     crearMapa(mapaBerazategui, berazateguiGeojson, centroBera, zoomBera);
     crearMapa(mapaQuilmes, quilmesGeojson, centroQuilmes, zoomQuilmes);
 });
 
-// Grafico de torta global
-const ctxPieAll = document.getElementById('pieChartAll').getContext('2d');
-new Chart(ctxPieAll, {
-    type: 'pie',
-    data: {
-        labels: ['Berazategui', 'Varela', 'Quilmes'],
-        datasets: [{
-            data: [40, 35, 25],
-            backgroundColor: ['#FFA500', '#4CAF50', '#00008B'],
-            borderColor: '#000',
-            borderWidth: 2
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: { position: 'top' },
-            tooltip: { callbacks: { label: tooltipItem => `${tooltipItem.label}: ${tooltipItem.raw}%` } }
+async function obtenerCantidadIncidentes(localidad) {
+    try {
+        const respuesta = await fetch('../../Back/pruebaGrafico/obtenerIncidentesLocalidades.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `localidad=${encodeURIComponent(localidad)}`
+        });
+
+        if (!respuesta.ok) {
+            throw new Error(`Error de red: ${respuesta.status}`);
         }
+
+        const textoRespuesta = await respuesta.text();
+
+        const datos = JSON.parse(textoRespuesta);
+        if (datos.error) {
+            console.error(`Error: ${datos.error}`);
+            return 0;
+        }
+
+        return datos.total;
+    } catch (error) {
+        console.error('Error al obtener los incidentes:', error);
+        return 0;
     }
-});
+}
+
+async function obtenerCantidadIncidentesPartidos(partido) {
+    try {
+        const respuesta = await fetch('../../Back/pruebaGrafico/obtenerIncidentesPartidos.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `partido=${encodeURIComponent(partido)}`
+        });
+
+        if (!respuesta.ok) {
+            throw new Error(`Error de red: ${respuesta.status}`);
+        }
+
+        const textoRespuesta = await respuesta.text();
+        console.log("Respuesta recibida:", textoRespuesta);
+
+        const datos = JSON.parse(textoRespuesta);
+        if (datos.error) {
+            console.error(`Error: ${datos.error}`);
+            return 0;
+        }
+
+        return datos.total;
+    } catch (error) {
+        console.error('Error al obtener los incidentes:', error);
+        return 0;
+    }
+}
 
 // Inicializador de graficos
-function crearGraficos(){
+async function crearGraficos(){
+    const todosLosPartidos = ['Berazategui', 'Florencio Varela', 'Quilmes'];
+    const incidentesTotal = await Promise.all(todosLosPartidos.map(partido => obtenerCantidadIncidentesPartidos(partido)));
+
+    // Grafico de torta global
+    const ctxPieAll = document.getElementById('pieChartAll').getContext('2d');
+    new Chart(ctxPieAll, {
+        type: 'pie',
+        data: {
+            labels: todosLosPartidos,
+            datasets: [{
+                data: incidentesTotal,
+                backgroundColor: ['#FFA500', '#4CAF50', '#00008B'],
+                borderColor: '#000',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: { callbacks: { label: tooltipItem => `${tooltipItem.label}: ${tooltipItem.raw}` } }
+            }
+        }
+    });
+
     // Configuración de los gráficos de torta y columnas para Berazategui
-    const ctxPieBerazategui = document.getElementById('pieChartBerazategui').getContext('2d');
+   /* const ctxPieBerazategui = document.getElementById('pieChartBerazategui').getContext('2d');
     const pieChartBerazategui = new Chart(ctxPieBerazategui, {
         type: 'pie',
         data: {
@@ -101,16 +163,31 @@ function crearGraficos(){
                 }
             }
         }
-    });
+    });*/
 
     const ctxBarBerazategui = document.getElementById('barChartBerazategui').getContext('2d');
+
+    const localidadesBerazategui = [
+        'Berazategui',
+        'El Pato',
+        'Hudson',
+        'Juan Maria Gutierrez',
+        'Pereyra',
+        'Platanos',
+        'Ranelagh',
+        'Sourigues',
+        'Villa España'
+    ];
+
+    const incidentesBerazategui = await Promise.all(localidadesBerazategui.map(localidad => obtenerCantidadIncidentes(localidad)));
+
     const barChartBerazategui = new Chart(ctxBarBerazategui, {
         type: 'bar',
         data: {
-            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            labels: localidadesBerazategui,
             datasets: [{
-                label: 'Robos en Berazategui',
-                data: [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75],
+                label: 'Incidentes:',
+                data: incidentesBerazategui,
                 backgroundColor: '#FFA500', // Naranja para Berazategui
                 borderColor: '#BF360C',
                 borderWidth: 1
@@ -119,18 +196,11 @@ function crearGraficos(){
         options: {
             responsive: true,
             scales: {
-                x: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Meses'
-                    }
-                },
                 y: {
                     beginAtZero: true,
                     title: {
                         display: true,
-                        text: 'Cantidad de Robos'
+                        text: 'Cantidad de Incidentes'
                     }
                 }
             },
@@ -150,7 +220,7 @@ function crearGraficos(){
     });
 
     // Configuración de los gráficos de torta y columnas para Varela
-    const ctxPieVarela = document.getElementById('pieChartVarela').getContext('2d');
+    /* const ctxPieVarela = document.getElementById('pieChartVarela').getContext('2d');
     const pieChartVarela = new Chart(ctxPieVarela, {
         type: 'pie',
         data: {
@@ -178,16 +248,32 @@ function crearGraficos(){
                 }
             }
         }
-    });
+    });*/
 
     const ctxBarVarela = document.getElementById('barChartVarela').getContext('2d');
+
+    const localidadesVarela = [
+        'Bosques', 
+        'Gobernador Julio Costa', 
+        'Ingeniero Juan Allan', 
+        'La Capilla', 
+        'Varela', 
+        'Villa Brown', 
+        'Villa San Luis', 
+        'Villa Santa Rosa', 
+        'Villa Vatteone', 
+        'Zeballos'
+    ];
+
+    const incidentesVarela = await Promise.all(localidadesVarela.map(localidad => obtenerCantidadIncidentes(localidad)));
+
     const barChartVarela = new Chart(ctxBarVarela, {
         type: 'bar',
         data: {
-            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            labels: localidadesVarela,
             datasets: [{
-                label: 'Robos en Varela',
-                data: [15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70],
+                label: 'Incidentes:',
+                data: incidentesVarela,
                 backgroundColor: '#4CAF50', // Verde para Varela
                 borderColor: '#388E3C',
                 borderWidth: 1
@@ -196,18 +282,12 @@ function crearGraficos(){
         options: {
             responsive: true,
             scales: {
-                x: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Meses'
-                    }
-                },
+                
                 y: {
                     beginAtZero: true,
                     title: {
                         display: true,
-                        text: 'Cantidad de Robos'
+                        text: 'Cantidad de Incidentes'
                     }
                 }
             },
@@ -227,7 +307,7 @@ function crearGraficos(){
     });
 
     // Configuración de los gráficos de torta y columnas para Quilmes
-    const ctxPieQuilmes = document.getElementById('pieChartQuilmes').getContext('2d');
+   /* const ctxPieQuilmes = document.getElementById('pieChartQuilmes').getContext('2d');
     const pieChartQuilmes = new Chart(ctxPieQuilmes, {
         type: 'pie',
         data: {
@@ -255,16 +335,28 @@ function crearGraficos(){
                 }
             }
         }
-    });
+    });*/
 
     const ctxBarQuilmes = document.getElementById('barChartQuilmes').getContext('2d');
+
+    const localidadesQuilmes = [
+        'Bernal', 
+        'Don Bosco', 
+        'Ezpeleta', 
+        'Villa La Florida', 
+        'Quilmes', 
+        'Solano'
+    ];
+
+    const incidentesQuilmes = await Promise.all(localidadesQuilmes.map(localidad => obtenerCantidadIncidentes(localidad)));
+
     const barChartQuilmes = new Chart(ctxBarQuilmes, {
         type: 'bar',
         data: {
-            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            labels: localidadesQuilmes,
             datasets: [{
-                label: 'Robos en Quilmes',
-                data: [25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80],
+                label: 'Incidentes:',
+                data: incidentesQuilmes,
                 backgroundColor: '#00008B', // Azul para Quilmes
                 borderColor: '#1976D2',
                 borderWidth: 1
@@ -273,18 +365,11 @@ function crearGraficos(){
         options: {
             responsive: true,
             scales: {
-                x: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Meses'
-                    }
-                },
                 y: {
                     beginAtZero: true,
                     title: {
                         display: true,
-                        text: 'Cantidad de Robos'
+                        text: 'Cantidad de Incidentes'
                     }
                 }
             },
@@ -329,7 +414,13 @@ function crearMapa(contenedorHTML, arrayGeojson, centro, zoom) {
                     "type": "background",
                     "paint": {
                         "background-color": "#ffffff" 
-                    }
+                    },
+                    "filter": [
+                    "all"
+                        ],
+                    "layout": {
+                        "visibility": "visible"
+                    },
                 },
                 {
                     "id": "osm-tiles",
@@ -338,7 +429,7 @@ function crearMapa(contenedorHTML, arrayGeojson, centro, zoom) {
                     "minzoom": 0,
                     "maxzoom": 19,
                     "paint": {
-                        "raster-opacity": 0.2
+                        "raster-opacity": 1
                     }
                 }
             ]
