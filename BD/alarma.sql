@@ -21,9 +21,11 @@ CREATE TABLE incidentes(
     tipo_victima varchar(30) NOT NULL,
     observacion varchar(255) NOT NULL,
     tipo varchar(30) NOT NULL,
-    ubicacion point NOT NULL,
+    otro_desc varchar(30) NULL,
+    ubicacion point,
     partido varchar(30) NOT NULL,
     localidad varchar(30) NOT NULL,
+    direccion varchar(30) NOT NULL,
     PRIMARY KEY(id_incidente),
     FOREIGN KEY (dni_usuario) REFERENCES usuarios(dni)
 );
@@ -45,11 +47,11 @@ INSERT INTO usuarios (dni, nombre, apellido, partido, localidad, direccion, tele
 (11223344, 'Luis', 'Martínez', 'Florencio Varela', 'Bosques', POINT(34.7986, -58.3000), '0113456789', 'luis.martinez@example.com', 'claveabcd'),
 (22334455, 'Laura', 'Rodríguez', 'Quilmes', 'Bernal', POINT(34.7085, -58.2370), '0119876543', 'laura.rodriguez@example.com', 'claveefgh');
 
-INSERT INTO incidentes (dni_usuario, tipo_victima, observacion, tipo, ubicacion, partido, localidad) VALUES
-(12345678, 'Personal', 'Robo en la oficina central', 'Robo', POINT(34.7212, -58.2494), 'Florencio Varela', 'Bosques'),
-(12345678, 'Personal', 'Robo en el kiosco', 'Robo', POINT(34.7499, -58.1462), 'Berazategui', 'El Pato'),
-(11223344, 'De terceros', 'Robo en la sucursal del banco', 'Robo', POINT(34.7986, -58.3000), 'Berazategui', 'Pereyra'),
-(22334455, 'De terceros', 'Robo en la casa de la esquina', 'Robo', POINT(34.7085, -58.2370), 'Quilmes', 'Ezpeleta');
+INSERT INTO incidentes (dni_usuario, tipo_victima, observacion, tipo, otro_desc, ubicacion, partido, localidad,direccion) VALUES
+(12345678, 'Personal', 'Robo en la oficina central', 'Robo', '',POINT(34.7212, -58.2494), 'Florencio Varela', 'Bosques','calle 123 nro 2411'),
+(12345678, 'Personal', 'Robo en el kiosco', 'Robo', 'otro hurto', POINT(34.7499, -58.1462), 'Berazategui', 'El Pato','calle 13 nro 211'),
+(11223344, 'De terceros', 'Robo en la sucursal del banco', 'Robo', '', POINT(34.7986, -58.3000), 'Berazategui', 'Pereyra','calle 12 nro 2121'),
+(22334455, 'De terceros', 'Robo en la casa de la esquina', 'Robo', '', POINT(34.7085, -58.2370), 'Quilmes', 'Ezpeleta','calle 125 nro 2711');
 
 INSERT INTO comentario (dni_usuario, asunto, observacion) VALUES
 (12345678, 'Sugerencia sobre color', 'Deberían poner otro color'),

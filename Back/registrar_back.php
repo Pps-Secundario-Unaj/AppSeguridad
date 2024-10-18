@@ -17,20 +17,20 @@ if (isset($_POST['register'])) {
         //arma la consulta
         $consulta = "INSERT INTO usuarios(dni, nombre, apellido, partido, localidad, direccion, telefono, mail, clave) VALUES ('$dni','$nombres','$apellidos','$partido','$localidad','$direccion','$telefono','$correo','$clave')";
         $resultado = mysqli_query($conex, $consulta);
-        if ($resultado) {
-?>
-            <h3>¡Te has registrado correctamente!</h3>
-        <?php
-        } else {
-        ?>
-            <h3>¡Ups ha ocurrido un error!</h3>
-        <?php
-        }
-    } else {
-        ?>
-        <h3>¡Por favor complete los campos!</h3>
+    if ($resultado) {
+    ?>
+                <h3 class="ok">¡Te has inscripto correctamente!</h3>
 <?php
+            } else {
+            ?>
+                <h3 class="bad">¡Ups ha ocurrido un error!</h3>
+            <?php
+            }
+        } else {
+            ?>
+            <h3 class="bad">¡Por favor complete los campos!</h3>
+    <?php
+        }
     }
-}
-
+mysqli_close($conexion);
 ?>

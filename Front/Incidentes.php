@@ -8,7 +8,22 @@
     <link rel="stylesheet" href="styles/incidentes.css">
 </head>
 <body>
-    <section class="form-register">
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+          <i class="fas fa-bars"></i>
+        </label>
+        <a href="#" class="enlace">
+          <img src="logo3.png" alt="" class="logo">
+        </a>
+        <ul>
+          <li><a class="active"  href="Registro.html">Registró</a></li>
+          <li><a href="IniciarSesion.html">Iniciar Sesión</a></li>
+          <li><a href="MisionVision.html">Misión y Visión</a></li>
+          <li><a href="Contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+    <form class="form-register" method="post">
         <h4>Formulario para Registrar Incidentes</h4>
             <div>
                 <label>
@@ -31,7 +46,7 @@
                 
             <div id="extra-info" class="extra-info">
                 <label for="otros">Especifique otro tipo de incidente:</label>
-                <input class="controls" type="text" id="otros" name="otros" placeholder="Describa el incidente">
+                <input class="controls" type="text" id="otros_desc" name="otros_desc" placeholder="Describa el incidente">
             </div>
         
             <label for="observaciones">Observaciones: (comente el suceso)</label>
@@ -43,12 +58,20 @@
                 <option value="berazategui">Berazategui</option>
                 <option value="fcio_varela">Florencio Varela</option>
             </select>
+
+            
+            <label for="direccion">Dirección del incidente:</label>
+            <input class="controls" type="text" id="direccion" name="direccion" placeholder="Describa el incidente">
+            
                 
             <label for="localidad">Localidad:</label>
             <select id="localidad" name="localidad"></select>
                 
-            <input class="botons" type="submit" value="Enviar">
-    </section>
+            <input class="botons" type="submit" value="Enviar" name="boton_inc">
+    </form>
+    <?php
+        include("../Back/registrar_incidente.php");
+    ?>
             
         <script>
             const localidades = {
