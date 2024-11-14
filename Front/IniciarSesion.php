@@ -18,7 +18,7 @@
           <img src="logo3.png" alt="" class="logo">
         </a>
         <ul>
-          <li><a href="Incidentes.html">Incidentes</a></li>
+          <li><a href="Incidentes.php">Incidentes</a></li>
           <li><a href="MisionVision.html">Misión y Visión</a></li>
           <li><a href="Contacto.html">Contacto</a></li>
         </ul>

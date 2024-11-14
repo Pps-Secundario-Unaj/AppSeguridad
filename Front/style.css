@@ -6,16 +6,16 @@
     box-sizing: border-box;
 }
 nav{
-    background: linear-gradient(rgb(132, 98, 228), rgb(0, 140, 255)) ;
+    background: linear-gradient(rgb(33, 30, 209), rgb(82, 87, 99));
     height: 80px;
     width: 100%;
 }
 .enlace{
     position: absolute;
-    padding: 15px 40px;
+    padding: 0px 20px;
 }
 .logo{
-    height: 60px;
+    height: 95px;
 }
 nav ul{
     float: right;

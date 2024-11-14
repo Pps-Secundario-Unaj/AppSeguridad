@@ -2,52 +2,47 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Monserrat';
 }
 
 body {
-    width: 100%;
-    background: linear-gradient(rgb(132, 98, 228), rgb(0, 140, 255));
+    background: linear-gradient(rgb(33, 30, 209), rgb(82, 87, 99));
+    font-family: 'Calibri', sans-serif;
+}
+
+.form-register {
+    width: 90%;
+    max-width: 800px;
+    background: #24303c;
+    padding: 30px;
+    margin: auto;
+    margin-top: 100px;
+    border-radius: 4px;
+    color: white;
+    box-shadow: 7px 13px 37px #000;
 }
 
 .title h1 {
     text-align: center;
-    padding-top: 50px;
     font-size: 42px;
-}
-
-.title h1::after {
-    content: "";
-    height: 4px;
-    width: 230px;
-    background-color: #000;
-    display: block;
-    margin: auto;
+    margin-bottom: 20px;
 }
 
 .services {
-    width: 85%;
     display: flex;
-    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan a la siguiente línea si es necesario */
-    justify-content: space-between; /* Espacio igual entre las tarjetas */
-    align-items: center;
-    margin: 75px auto;
-    text-align: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
 }
 
 .card {
-    flex: 1 1 calc(33.333% - 20px); /* Ajusta el ancho de las tarjetas y permite que se envuelvan */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 10px; /* Espacio entre las tarjetas */
-    padding: 20px;
+    flex: 1 1 calc(33.333% - 20px);
     background-color: #efefef;
+    color: #000;
     border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para las tarjetas */
-    transition: background-color 0.4s ease; /* Transición suave para el hover */
+    margin: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.4s ease;
 }
 
 .card:hover {
@@ -61,26 +56,25 @@ body {
 
 .card h2 {
     font-size: 28px;
-    color: #000000;
     margin-bottom: 20px;
 }
 
 .card p {
     font-size: 17px;
-    margin-bottom: 30px;
     line-height: 1.5;
     color: #5e5e5e;
 }
 
 .button {
+    display: inline-block;
     font-size: 15px;
     text-decoration: none;
-    color: #fff;
+    color: white;
     padding: 8px 12px;
     border-radius: 5px;
     letter-spacing: 1px;
-    background-color: #4619e7;
-    transition: background-color 0.4s ease; /* Transición suave para el hover */
+    background-color: #2719e7;
+    transition: background-color 0.4s ease;
 }
 
 .button:hover {
@@ -89,11 +83,11 @@ body {
 
 @media screen and (max-width: 940px) {
     .services {
-        flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+        flex-direction: column;
         align-items: center;
     }
     .card {
         width: 85%;
-        margin: 20px 35px; /* Ajusta el margen vertical para pantallas pequeñas */
+        margin: 20px 0;
     }
 }
