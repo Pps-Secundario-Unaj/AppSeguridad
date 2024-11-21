@@ -8,7 +8,7 @@ CREATE TABLE usuarios(
     apellido varchar(30) NOT NULL,
     partido varchar(30) NOT NULL,
     localidad varchar(30) NOT NULL,
-    direccion point NOT NULL,
+    direccion point,
     telefono int NOT NULL,
     mail varchar(255) NOT NULL,
     clave varchar(255) NOT NULL,
